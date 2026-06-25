@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Behaviour Assessment — Lars Vonheim</title>
+<meta name="description" content="A free 5-minute self-assessment across the four phases of organisational behaviour: Direction, Trust, Action and Renewal.">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal: #1D393C;
+    --teal-light: #2a5258;
+    --sand: #C8A97A;
+    --white: #ffffff;
+    --off-white: #f7f5f0;
+    --text: #1a1a1a;
+    --text-muted: #555;
+    --border: #ddd;
+    --radius: 10px;
+    --phase-1: #1D9E75;
+    --phase-1-bg: #E1F5EE;
+    --phase-1-dark: #085041;
+    --phase-2: #378ADD;
+    --phase-2-bg: #E6F1FB;
+    --phase-2-dark: #0C447C;
+    --phase-3: #BA7517;
+    --phase-3-bg: #FAEEDA;
+    --phase-3-dark: #633806;
+    --phase-4: #534AB7;
+    --phase-4-bg: #EEEDFE;
+    --phase-4-dark: #26215C;
+  }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--off-white);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--teal);
+    color: var(--white);
+    padding: 2rem 1.5rem 1.5rem;
+    text-align: center;
+  }
+
+  .logo-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 1.25rem;
+  }
+
+  .lv-mark {
+    width: 38px;
+    height: 38px;
+    border: 1.5px solid var(--sand);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--sand);
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+  }
+
+  .logo-name {
+    font-size: 15px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.04em;
+  }
+
+  header h1 {
+    font-size: clamp(1.4rem, 4vw, 1.9rem);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    line-height: 1.25;
+  }
+
+  header p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.7);
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .privacy-note {
+    margin-top: 1rem;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .privacy-note::before {
+    content: "🔒";
+    font-size: 11px;
+  }
+
+  main {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 4rem;
+  }
+
+  .phase-block {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+  }
+
+  .phase-header {
+    padding: 1rem 1.25rem;
+  }
+
+  .phase-number {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .phase-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+
+  .phase-sub {
+    font-size: 13px;
+    opacity: 0.7;
+  }
+
+  .question-row {
+    padding: 1rem 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .q-text {
+    font-size: 14px;
+    color: var(--text);
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+
+  .scale-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .scale-wrap input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    background: #e0e0e0;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .scale-wrap input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--teal);
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+
+  .scale-wrap input[type=range]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--teal);
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+
+  .scale-end {
+    font-size: 12px;
+    color: #999;
+    min-width: 10px;
+    text-align: center;
+  }
+
+  .scale-val {
+    font-size: 15px;
+    font-weight: 600;
+    min-width: 22px;
+    text-align: center;
+    color: var(--teal);
+  }
+
+  .scale-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #aaa;
+    margin-top: 4px;
+    padding: 0 28px;
+  }
+
+  .results-section {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .results-title {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+  }
+
+  .phase-result {
+    margin-bottom: 1rem;
+  }
+
+  .phase-result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  .phase-result-name {
+    font-weight: 500;
+  }
+
+  .phase-result-score {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .bar-track {
+    height: 8px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.35s ease;
+  }
+
+  .insight-box {
+    margin-top: 1.25rem;
+    padding: 1rem 1.1rem;
+    background: var(--off-white);
+    border-radius: 8px;
+    border-left: 3px solid var(--teal);
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text);
+  }
+
+  .insight-phase {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+
+  .insight-text {
+    margin-bottom: 0.75rem;
+  }
+
+  .insight-footer {
+    font-size: 12px;
+    color: #888;
+    font-style: italic;
+  }
+
+  .cta-box {
+    margin-top: 1.25rem;
+    padding: 1rem 1.1rem;
+    background: var(--teal);
+    border-radius: 8px;
+    color: rgba(255,255,255,0.85);
+    font-size: 13px;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  .cta-box strong {
+    display: block;
+    font-size: 15px;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .cta-box a {
+    color: var(--sand);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .cta-box a:hover {
+    text-decoration: underline;
+  }
+
+  .reset-btn {
+    margin-top: 1rem;
+    padding: 8px 18px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.15s;
+  }
+
+  .reset-btn:hover {
+    background: var(--off-white);
+  }
+
+  footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    font-size: 12px;
+    color: #aaa;
+  }
+
+  footer a {
+    color: var(--teal);
+    text-decoration: none;
+  }
+
+  @media (max-width: 480px) {
+    header { padding: 1.5rem 1rem 1.25rem; }
+    .q-text { font-size: 13px; }
+    .phase-title { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-line">
+    <div class="lv-mark">LV</div>
+    <span class="logo-name">Lars Vonheim</span>
+  </div>
+  <h1>How does your organisation behave?</h1>
+  <p>A 5-minute self-assessment across the four phases that determine whether culture drives performance — or holds it back.</p>
+  <p class="privacy-note">No registration. No data stored. Results appear instantly on screen.</p>
+</header>
+
+<main>
+
+  <!-- PHASE 1: DIRECTION -->
+  <div class="phase-block">
+    <div class="phase-header" style="background:var(--phase-1-bg);">
+      <p class="phase-number" style="color:var(--phase-1);">Phase 1</p>
+      <p class="phase-title" style="color:var(--phase-1-dark);">Direction</p>
+      <p class="phase-sub" style="color:var(--phase-1);">We build clarity and alignment</p>
+    </div>
+    <div class="question-row">
+      <p class="q-text">People in our organisation can clearly explain where we are heading.</p>
+      <div class="scale-wrap"><span class="scale-end">1</span><input type="range" min="1" max="5" value="3" step="1" class="q-slider" data-phase="0" id="s0" oninput="update()"><span class="scale-end">5</span><span class="scale-val" id="v0">3</span></div>
+      <div class="scale-labels"><span>Rarely</span><span>Almost always</span></div>
+    </div>
+    <div class="question-row">
+      <p class="q-text">People in our organisation feel personally committed to achieving our shared goals.</p>
+      <div class="scale-wrap"><span class="scale-end">1</span><input type="range" min="1" max="5" value="3" step="1" class="q-slider" data-phase="0" id="s1" oninput="update()"><span class="scale-end">5</span><span class="scale-val" id="v1">3</span></div>
+      <div class="scale-labels"><span>Rarely</span><span>Almost always</span></div>
+    </div>
+    <div class="question-row">
+      <p class="q-text">In our organisation, expectations are expressed openly — not assumed or discovered too late.</p>
+      <div class="scale-wrap"><span class="scale-end">1</span><input type="range" min="1" max="5" value="3" step="1" class="q-slider" data-phase="0" id="s2" oninput="update()"><span class="scale-end">5</span><span class="scale-val" id="v2">3</span></div>
+      <div class="scale-labels"><span>Rarely</span><span>Almost always</span></div>
+    </div>
+    <div class="question-row">
+      <p class="q-text">When expectations are set, we check that they are genuinely understood and agreed — not just communicated.</p>
+      <div class="scale-wrap"><span class="scale-end">1</span><input type="range" min="1" max="5" value="3" step="1" class="q-slider" data-phase="0" id="s3" oninput="update()"><span class="scale-end">5</span><span class="scale-val" id="v3">3</span></div>
+      <div class="scale-labels"><span>Rarely</span><span>Almost always</span></div>
+    </div>
+  </div>
+
+  <!-- PHASE 2: TRUST -->
+  <div class="phase-block">
+    <div class="phase-header" style="background:var(--phase-2-bg);">
+      <p class="phase-number" style="color:var(--phase-2);">Phase 2</p>
+      <p class="phase-title" style="color:var(--phase-2-dark);">Trust</p>
+      <p class="phase-sub" style="color:var(--phase-2);">We build trust and collaboration</p>
+    </div>
+    <div class="question-row">
+      <p class="q-text">In our meetings, people listen to understand — not just to respond.</p>
+      <div class="scale-wrap"><span class="scale-end">1</span><input type="range" min="1" max="5" value="3" step="1" class="q-slider" data-phase="1" id="s4" oninput="update()"><span class="scale-end">5</span><span class="scale-val" id="v4">3</span></div>
+      <div class="scale-labels"><span>Rarely</span><span>Almost always</span></div>
+    </div>
+    <div class="question-row">
+      <p class="q-text">We actively use differences in perspective and background as an advantage — not something to smooth over.</p>
+      <div class="scale-wrap"><span class="scale-end">1</span><input type="range" min="1" max="5" value="3" step="1" class="q-slider" data-phase="1" id="s5" oninput="update()"><span class="scale-end">5</span><span class="scale-val" id="v5">3</span></div>
+      <div class="scale-labels"><span>Rarely</span><span>Almost always</span></div>
+    </div>
+    <div class="question-row">
+      <p class="q-text">In our organisation, sharing your knowledge and experience with others is a natural part of how we work.</p>
+      <div class="scale-wrap"><span class="scale-end">1</span><input type="range" min="1" max="5" value="3" step="1" class="q-slider" data-phase="1" id="s6" oninput="update()"><span class="scale-end">5</span><span class="scale-val" id="v6">3</span></div>
+      <div class="scale-labels"><span>Rarely</span><span>Almost always</span></div>
+    </div>
+    <div class="question-row">
+      <p class="q-text">In our organisation, asking for help is as natural as offering it — people don't pretend to know what they don't.</p>
+      <div class="scale-wrap"><span class="scale-end">1</span><input type="range" min="1" max="5" value="3" step="1" class="q-slider" data-phase="1" id="s7" oninput="update()"><span class="scale-end">5</span><span class="scale-val" id="v7">3</span></div>
+      <div class="scale-labels"><span>Rarely</span><span>Almost always</span></div>
+    </div>
+  </div>
+
+  <!-- PHASE 3: ACTION -->
+  <div class="phase-block">
+    <div class="phase-header" style="background:var(--phase-3-bg);">
+      <p class="phase-number" style="color:var(--phase-3);">Phase 3</p>
+      <p class="phase-title" style="color:var(--phase-3-dark);">Action</p>
+      <p class="phase-sub" style="color:var(--phase-3);">We build execution and routines</p>
+    </div>
+    <div class="question-row">
+      <p class="q-text">People in our organisation act on what they believe is right — even when the outcome is uncertain.</p>
+      <div class="scale-wrap"><span class="scale-end">1</span><input type="range" min="1" max="5" value="3" step="1" class="q-slider" data-phase="2" id="s8" oninput="update()"><span class="scale-end">5</span><span class="scale-val" id="v8">3</span></div>
+      <div class="scale-labels"><span>Rarely</span><span>Almost always</span></div>
+    </div>
+    <div class="question-row">
+      <p class="q-text">Decisions are made at the right level, at the right speed — without unnecessary escalation or delay.</p>
+      <div class="scale-wrap"><span class="scale-end">1</span><input type="range" min="1" max="5" value="3" step="1" class="q-slider" data-phase="2" id="s9" oninput="update()"><span class="scale-end">5</span><span class="scale-val" id="v9">3</span></div>
+      <div class="scale-labels"><span>Rarely</span><span>Almost always</span></div>
+    </div>
+    <div class="question-row">
+      <p class="q-text">In our organisation, people take ownership of driving change — without waiting to be asked.</p>
+      <div class="scale-wrap"><span class="scale-end">1</span><input type="range" min="1" max="5" value="3" step="1" class="q-slider" data-phase="2" id="s10" oninput="update()"><span class="scale-end">5</span><span class="scale-val" id="v10">3</span></div>
+      <div class="scale-labels"><span>Rarely</span><span>Almost always</span></div>
+    </div>
+  </div>
+
+  <!-- PHASE 4: RENEWAL -->
+  <div class="phase-block">
+    <div class="phase-header" style="background:var(--phase-4-bg);">
+      <p class="phase-number" style="color:var(--phase-4);">Phase 4</p>
+      <p class="phase-title" style="color:var(--phase-4-dark);">Renewal</p>
+      <p class="phase-sub" style="color:var(--phase-4);">We learn, improve and adapt</p>
+    </div>
+    <div class="question-row">
+      <p class="q-text">We regularly examine how we work — not just what we deliver.</p>
+      <div class="scale-wrap"><span class="scale-end">1</span><input type="range" min="1" max="5" value="3" step="1" class="q-slider" data-phase="3" id="s11" oninput="update()"><span class="scale-end">5</span><span class="scale-val" id="v11">3</span></div>
+      <div class="scale-labels"><span>Rarely</span><span>Almost always</span></div>
+    </div>
+    <div class="question-row">
+      <p class="q-text">When something goes wrong, we ask what we can learn — before we ask who is responsible.</p>
+      <div class="scale-wrap"><span class="scale-end">1</span><input type="range" min="1" max="5" value="3" step="1" class="q-slider" data-phase="3" id="s12" oninput="update()"><span class="scale-end">5</span><span class="scale-val" id="v12">3</span></div>
+      <div class="scale-labels"><span>Rarely</span><span>Almost always</span></div>
+    </div>
+    <div class="question-row">
+      <p class="q-text">We take time to celebrate what we achieve together — not just move straight to the next challenge.</p>
+      <div class="scale-wrap"><span class="scale-end">1</span><input type="range" min="1" max="5" value="3" step="1" class="q-slider" data-phase="3" id="s13" oninput="update()"><span class="scale-end">5</span><span class="scale-val" id="v13">3</span></div>
+      <div class="scale-labels"><span>Rarely</span><span>Almost always</span></div>
+    </div>
+    <div class="question-row">
+      <p class="q-text">Our organisation has genuine energy for change — not just capacity for it.</p>
+      <div class="scale-wrap"><span class="scale-end">1</span><input type="range" min="1" max="5" value="3" step="1" class="q-slider" data-phase="3" id="s14" oninput="update()"><span class="scale-end">5</span><span class="scale-val" id="v14">3</span></div>
+      <div class="scale-labels"><span>Rarely</span><span>Almost always</span></div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="results-section">
+    <p class="results-title">Your results</p>
+
+    <div class="phase-result">
+      <div class="phase-result-header">
+        <span class="phase-result-name">Direction</span>
+        <span class="phase-result-score" id="score0">3.0 / 5</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill" id="bar0" style="width:60%;background:var(--phase-1);"></div></div>
+    </div>
+
+    <div class="phase-result">
+      <div class="phase-result-header">
+        <span class="phase-result-name">Trust</span>
+        <span class="phase-result-score" id="score1">3.0 / 5</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill" id="bar1" style="width:60%;background:var(--phase-2);"></div></div>
+    </div>
+
+    <div class="phase-result">
+      <div class="phase-result-header">
+        <span class="phase-result-name">Action</span>
+        <span class="phase-result-score" id="score2">3.0 / 5</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill" id="bar2" style="width:60%;background:var(--phase-3);"></div></div>
+    </div>
+
+    <div class="phase-result">
+      <div class="phase-result-header">
+        <span class="phase-result-name">Renewal</span>
+        <span class="phase-result-score" id="score3">3.0 / 5</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill" id="bar3" style="width:60%;background:var(--phase-4);"></div></div>
+    </div>
+
+    <div class="insight-box" id="insight-box">
+      <p class="insight-phase" id="insight-phase">Weakest phase</p>
+      <p class="insight-text" id="insight-text"></p>
+      <p class="insight-footer">The phase you scored lowest is the most important to address first. Each phase builds on the one before — you cannot rush ahead.</p>
+    </div>
+
+    <div class="cta-box">
+      <strong>Want to go deeper?</strong>
+      Read the full article — <em>Make Culture Your Strategy</em> — and explore all 10 behaviours across the four phases.<br><br>
+      <a href="https://www.linkedin.com/pulse/make-culture-your-strategy-10-behaviours-build-worth-fighting-lars-amsnf" target="_blank" rel="noopener">Read the article on LinkedIn →</a>
+    </div>
+
+    <div class="cta-box" style="margin-top:0.75rem;background:var(--teal-light);">
+      <strong>Want to run this with your full organisation?</strong>
+      The most revealing results come when you compare how leaders and employees score the same questions — the gaps are almost always where the real work is.<br><br>
+      I run facilitated assessments across teams and organisational levels, with aggregated results and a structured conversation about what the differences mean.<br><br>
+      <a href="https://www.linkedin.com/in/larsvonheim" target="_blank" rel="noopener">Message me on LinkedIn →</a>
+    </div>
+
+    <button class="reset-btn" onclick="reset()">
+      ↺ Reset assessment
+    </button>
+  </div>
+
+</main>
+
+<footer>
+  <p>© Lars Vonheim · <a href="https://www.linkedin.com/in/larsvonheim" target="_blank" rel="noopener">linkedin.com/in/larsvonheim</a></p>
+  <p style="margin-top:4px;">No data is collected or stored. This assessment runs entirely in your browser.</p>
+</footer>
+
+<script>
+const phaseNames = ["Direction","Trust","Action","Renewal"];
+const phaseCounts = [4,4,3,4];
+
+const insights = [
+  [
+    "Your direction is strong — people understand where you are heading and feel personally committed to getting there. Expectations are clear and genuinely shared.",
+    "Direction is mostly clear, but personal commitment or how expectations are aligned may be uneven. Check whether people have truly chosen the direction — not just heard it.",
+    "Clarity on direction exists in places, but commitment and shared expectations need attention. Without these, even the best strategy bleeds energy.",
+    "Direction is your most urgent priority. People cannot collaborate, build trust, or act with courage when they are not sure where they are going — or why it matters to them personally."
+  ],
+  [
+    "Trust and collaboration are genuinely present. People listen, use differences as strengths, and share knowledge freely — including asking for help. That is rare, and it matters.",
+    "A reasonable foundation of trust exists, but some dimensions are stronger than others. Look at where knowledge flow and honest dialogue could be more natural.",
+    "Some trust exists, but people may still be holding back — especially when it comes to asking for help or using differences as a real strength rather than a friction point.",
+    "Trust is fragile here. This is where most change efforts quietly fail — not because of strategy, but because people are not yet safe enough to collaborate honestly."
+  ],
+  [
+    "Your organisation moves with courage and ownership. People act on what they believe is right, decisions happen at the right level, and change is driven from within — not waited for.",
+    "Good execution on some dimensions, but ownership of driving change could be stronger. Courage is present; clarity about who decides what may need attention.",
+    "Some action happens, but uncertainty and escalation slow things down. The culture may not yet fully reward people who act before being asked.",
+    "Action is stalling. The gap between what people know should happen and what they actually do is costing you. Courage and decision clarity both need focused attention."
+  ],
+  [
+    "Renewal is genuinely alive in your organisation. You learn from mistakes, improve how you work, and take time to celebrate. That builds the energy for what comes next.",
+    "You improve and adapt, but mistakes may not yet be fully used as learning fuel — and celebration of achievement could be more deliberate.",
+    "Some reflection happens, but the energy for change and the habit of celebrating progress are not yet consistent. Without renewal, organisations run on borrowed momentum.",
+    "Renewal is the phase most organisations skip — and the one that determines whether you have energy for the next challenge. Without it, change fatigue sets in."
+  ]
+];
+
+function getInsightIndex(score) {
+  if (score >= 4.3) return 0;
+  if (score >= 3.3) return 1;
+  if (score >= 2.3) return 2;
+  return 3;
+}
+
+function update() {
+  const sliders = document.querySelectorAll('.q-slider');
+  const totals = [0,0,0,0];
+  const counts = [0,0,0,0];
+
+  sliders.forEach((sl, i) => {
+    const val = parseInt(sl.value);
+    document.getElementById('v' + i).textContent = val;
+    const p = parseInt(sl.dataset.phase);
+    totals[p] += val;
+    counts[p]++;
+  });
+
+  let lowestScore = 99;
+  let lowestPhase = 0;
+
+  for (let p = 0; p < 4; p++) {
+    const avg = totals[p] / counts[p];
+    const pct = Math.round((avg - 1) / 4 * 100);
+    document.getElementById('score' + p).textContent = avg.toFixed(1) + ' / 5';
+    document.getElementById('bar' + p).style.width = pct + '%';
+    if (avg < lowestScore) { lowestScore = avg; lowestPhase = p; }
+  }
+
+  document.getElementById('insight-phase').textContent = 'Weakest phase: ' + phaseNames[lowestPhase];
+  document.getElementById('insight-text').textContent = insights[lowestPhase][getInsightIndex(lowestScore)];
+}
+
+function reset() {
+  document.querySelectorAll('.q-slider').forEach((sl, i) => {
+    sl.value = 3;
+    document.getElementById('v' + i).textContent = 3;
+  });
+  update();
+}
+
+update();
+</script>
+
+</body>
+</html>
